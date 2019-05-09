@@ -21,10 +21,11 @@ if (window.innerWidth < 1000) {
 	var font;
 
 	// Boolean indicators
-	var started, gameOver;
+	var started, gameOver, insertedCoin;
 
 	// Button screens
 	var startScreen, gameOverScreen;
+	var insertButton;
 
 	// Sound effects
 	var laserSound, pExplosion, aExplosion, aLaserSound;
@@ -92,9 +93,12 @@ if (window.innerWidth < 1000) {
 		startScreen = new Screen("Space Invaders", "", "Start");
 		gameOverScreen = new Screen("Game Over", "", "Restart");
 
-		mouseControl = false;
+		insertButton = new Button("Insert Coin", width/2-150, height/2-50, 300, 100);
+
 		started = false;
 		gameOver = false;
+		insertedCoin = false;
+
 
 		g = new Game();
 	}
@@ -105,44 +109,48 @@ if (window.innerWidth < 1000) {
 
 		background(0);
 
-		if (gameOver) {
-			if (gameOverScreen.update()) {
-				gameOver = false;
-				started = true;
-				g.reset();
-			}
-			gameOverScreen.show();
-		} else if (started) {
-			if (g.update()) {
-				gameOver = true;
-				started = false;
-				gameOverScreen.subtitle = `Score: ${g.score}`;
-			}
-			g.show();
+		if (!insertedCoin) {
+			insertButton.show();
+			insertButton.update();
 
-			fill(0, 255, 10);
-			rect(0, height - 3, width, 3);
-		} else {
-			if (!songs[0].isPlaying()) {
+			if (insertButton.actuated) {
+				insertedCoin = true;
 				songs[0].play();
 			}
+		} else {
+			if (gameOver) {
+				if (gameOverScreen.update()) {
+					gameOver = false;
+					started = true;
+					g.reset();
+				}
+				gameOverScreen.show();
+			} else if (started) {
+				if (g.update()) {
+					gameOver = true;
+					started = false;
+					gameOverScreen.subtitle = `Score: ${g.score}`;
+				}
+				g.show();
 
-			if (startScreen.update()) {
-				started = true;
-				songs[0].stop();
+				fill(0, 255, 10);
+				rect(0, height - 3, width, 3);
+			} else {
+				if (!songs[0].isPlaying()) {
+					songs[0].play();
+				}
+
+				if (startScreen.update()) {
+					started = true;
+					songs[0].stop();
+				}
+				startScreen.show();
+
+				fill(255);
+				textSize(10);
+				textAlign(LEFT);
+				text("Music courtesy of 8 Bit Universe", 10, 10);
 			}
-			startScreen.show();
-
-			fill(255);
-			textSize(10);
-			textAlign(LEFT);
-			text("Music courtesy of 8 Bit Universe", 10, 10);
-		}
-
-		if (keyIsDown("F".charCodeAt(0))) {
-			textSize(20);
-			textAlign(CENTER);
-			text(`FPS: ${floor(frameRate())}`, width / 3, 50);
 		}
 	}
 
