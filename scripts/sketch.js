@@ -42,8 +42,6 @@ if (window.innerWidth < 1000) {
 		a3_1 = loadImage("../assets/img/a3_1.png");
 		a3_2 = loadImage("../assets/img/a3_2.png");
 
-		// aSheet = loadImage("../assets/img/spriteSheet.png");
-
 		pD1 = loadImage("../assets/img/dPlayer-frame1.png");
 		pD2 = loadImage("../assets/img/dPlayer-frame2.png");
 		explosion = loadImage("../assets/img/explosion.png");
@@ -78,10 +76,6 @@ if (window.innerWidth < 1000) {
 			new Animation([new Sprite(a1_1, 0, 0, 32, 32), new Sprite(a1_2, 0, 0, 32, 32)]),
 			new Animation([new Sprite(a2_1, 0, 0, 44, 32), new Sprite(a2_2, 0, 0, 44, 32)]),
 			new Animation([new Sprite(a3_1, 0, 0, 48, 32), new Sprite(a3_2, 0, 0, 48, 32)])
-			// new Animation([new Sprite(aSheet, 0, 0, 48, 32), new Sprite(aSheet, 0, 0, 48, 32)]),
-			// new Animation([new Sprite(aSheet, 0, 0, 48, 32), new Sprite(aSheet, 0, 0, 48, 32)]),
-			// new Animation([new Sprite(aSheet, 0, 0, 48, 32), new Sprite(aSheet, 0, 0, 48, 32)])
-			
 		];
 
 		wiggle = new Animation([
