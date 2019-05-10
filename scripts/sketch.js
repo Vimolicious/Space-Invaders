@@ -1,5 +1,6 @@
 if (window.innerWidth < 1000) {
 	document.getElementById("game-wrapper").innerHTML = "Sorry, your screen is too small";
+	document.getElementById("game-wrapper").className = "small";
 } else {
 
 	// Game variable
