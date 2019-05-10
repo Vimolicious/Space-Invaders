@@ -44,9 +44,9 @@ if (window.innerWidth < 1000) {
 		a3_1 = loadImage("assets/img/a3_1.png");
 		a3_2 = loadImage("assets/img/a3_2.png");
 
-		pD1 = loadImage("../assets/img/dPlayer-frame1.png");
-		pD2 = loadImage("../assets/img/dPlayer-frame2.png");
-		explosion = loadImage("../assets/img/explosion.png");
+		pD1 = loadImage("assets/img/dPlayer-frame1.png");
+		pD2 = loadImage("assets/img/dPlayer-frame2.png");
+		explosion = loadImage("assets/img/explosion.png");
 
 		font = loadFont('assets/fonts/PressStart2P-Regular.ttf');
 
