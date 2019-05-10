@@ -23,7 +23,7 @@ class Game {
 
     update() {
         if (this.player.dTime === 0) {
-            if (!this.song.isPlaying() && !this.grid.isEmpty()) {
+            if (!this.song.isPlaying() && this.grid.startCounter === 0) {
                 if (!this.musicPaused) {
                     this.song = songs[floor(random() * songs.length)];
                 }
@@ -42,7 +42,6 @@ class Game {
             }
 
             if (this.grid.isEmpty()) {
-                this.song.pause();
                 this.grid.start();
                 this.round++;
                 if (this.player.lives < 5) {
@@ -65,6 +64,11 @@ class Game {
         }
 
         this.gameOver = (this.player.lives === 0 || this.grid.gameOver()) && this.player.dTime === 0;
+
+        if (this.gameOver) {
+            this.song.stop();
+            this.song = songs[floor(random() * songs.length)];
+        }
         return this.gameOver;
     }
 

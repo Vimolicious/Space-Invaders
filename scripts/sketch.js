@@ -1,5 +1,6 @@
 if (window.innerWidth < 1000) {
 	document.getElementById("game-wrapper").innerHTML = "Sorry, your screen is too small";
+	document.getElementById("game-wrapper").className = "small";
 } else {
 
 	// Game variable
@@ -21,10 +22,11 @@ if (window.innerWidth < 1000) {
 	var font;
 
 	// Boolean indicators
-	var started, gameOver;
+	var started, gameOver, insertedCoin;
 
 	// Button screens
 	var startScreen, gameOverScreen;
+	var insertButton;
 
 	// Sound effects
 	var laserSound, pExplosion, aExplosion, aLaserSound;
@@ -42,11 +44,9 @@ if (window.innerWidth < 1000) {
 		a3_1 = loadImage("assets/img/a3_1.png");
 		a3_2 = loadImage("assets/img/a3_2.png");
 
-		// aSheet = loadImage("../assets/img/spriteSheet.png");
-
-		pD1 = loadImage("assets/img/dPlayer-frame1.png");
-		pD2 = loadImage("assets/img/dPlayer-frame2.png");
-		explosion = loadImage("assets/img/explosion.png");
+		pD1 = loadImage("../assets/img/dPlayer-frame1.png");
+		pD2 = loadImage("../assets/img/dPlayer-frame2.png");
+		explosion = loadImage("../assets/img/explosion.png");
 
 		font = loadFont('assets/fonts/PressStart2P-Regular.ttf');
 
@@ -78,10 +78,6 @@ if (window.innerWidth < 1000) {
 			new Animation([new Sprite(a1_1, 0, 0, 32, 32), new Sprite(a1_2, 0, 0, 32, 32)]),
 			new Animation([new Sprite(a2_1, 0, 0, 44, 32), new Sprite(a2_2, 0, 0, 44, 32)]),
 			new Animation([new Sprite(a3_1, 0, 0, 48, 32), new Sprite(a3_2, 0, 0, 48, 32)])
-			// new Animation([new Sprite(aSheet, 0, 0, 48, 32), new Sprite(aSheet, 0, 0, 48, 32)]),
-			// new Animation([new Sprite(aSheet, 0, 0, 48, 32), new Sprite(aSheet, 0, 0, 48, 32)]),
-			// new Animation([new Sprite(aSheet, 0, 0, 48, 32), new Sprite(aSheet, 0, 0, 48, 32)])
-			
 		];
 
 		wiggle = new Animation([
@@ -98,9 +94,12 @@ if (window.innerWidth < 1000) {
 		startScreen = new Screen("Space Invaders", "", "Start");
 		gameOverScreen = new Screen("Game Over", "", "Restart");
 
-		mouseControl = false;
+		insertButton = new Button("Insert Coin", width/2-150, height/2-50, 300, 100);
+
 		started = false;
 		gameOver = false;
+		insertedCoin = false;
+
 
 		g = new Game();
 	}
@@ -111,44 +110,48 @@ if (window.innerWidth < 1000) {
 
 		background(0);
 
-		if (gameOver) {
-			if (gameOverScreen.update()) {
-				gameOver = false;
-				started = true;
-				g.reset();
-			}
-			gameOverScreen.show();
-		} else if (started) {
-			if (g.update()) {
-				gameOver = true;
-				started = false;
-				gameOverScreen.subtitle = `Score: ${g.score}`;
-			}
-			g.show();
+		if (!insertedCoin) {
+			insertButton.show();
+			insertButton.update();
 
-			fill(0, 255, 10);
-			rect(0, height - 3, width, 3);
-		} else {
-			if (!songs[0].isPlaying()) {
+			if (insertButton.actuated) {
+				insertedCoin = true;
 				songs[0].play();
 			}
+		} else {
+			if (gameOver) {
+				if (gameOverScreen.update()) {
+					gameOver = false;
+					started = true;
+					g.reset();
+				}
+				gameOverScreen.show();
+			} else if (started) {
+				if (g.update()) {
+					gameOver = true;
+					started = false;
+					gameOverScreen.subtitle = `Score: ${g.score}`;
+				}
+				g.show();
 
-			if (startScreen.update()) {
-				started = true;
-				songs[0].stop();
+				fill(0, 255, 10);
+				rect(0, height - 3, width, 3);
+			} else {
+				if (!songs[0].isPlaying()) {
+					songs[0].play();
+				}
+
+				if (startScreen.update()) {
+					started = true;
+					songs[0].stop();
+				}
+				startScreen.show();
+
+				fill(255);
+				textSize(10);
+				textAlign(LEFT);
+				text("Music courtesy of 8 Bit Universe", 10, 10);
 			}
-			startScreen.show();
-
-			fill(255);
-			textSize(10);
-			textAlign(LEFT);
-			text("Music courtesy of 8 Bit Universe", 10, 10);
-		}
-
-		if (keyIsDown("F".charCodeAt(0))) {
-			textSize(20);
-			textAlign(CENTER);
-			text(`FPS: ${floor(frameRate())}`, width / 3, 50);
 		}
 	}
 

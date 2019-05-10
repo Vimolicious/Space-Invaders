@@ -47,40 +47,43 @@ class Player {
             }
             this.laser.update();
 
-            for (let a = 0; a < aliens.length; a++) {
-                let row = aliens[a];
-                for (let i = 0; i < row.length; i++) {
-                    if (this.laser.hits(row[i])) {
-                        this.score += aliens[a][i].score;
+            if (!this.shootable) {
+                for (let a = 0; a < aliens.length; a++) {
+                    let row = aliens[a];
+                    for (let i = 0; i < row.length; i++) {
+                        if (this.laser.hits(row[i])) {
+                            this.score += aliens[a][i].score;
 
-                        row[i].explode();
-                        aExplosion.play();
+                            row[i].explode();
+                            aExplosion.play();
 
-                        this.shootable = true;
+                            this.shootable = true;
+                        }
                     }
                 }
-            }
 
-            for (let s of shields) {
-                for (let p of s.parts) {
-                    if (p.health !== 0 && this.laser.hits(p)) {
-                        p.shatter();
-                        this.shootable = true;
+
+                for (let s of shields) {
+                    for (let p of s.parts) {
+                        if (p.health !== 0 && this.laser.hits(p)) {
+                            p.shatter();
+                            this.shootable = true;
+                        }
                     }
                 }
-            }
 
-            if (this.laser.hits(saucer) && saucer.dCount === 0) {
-                saucer.destroy();
-                pExplosion.rate(3);
-                pExplosion.play();
-                this.score += saucer.val;
-                this.shootable = true;
-            }
+                if (this.laser.hits(saucer) && saucer.dCount === 0) {
+                    saucer.destroy();
+                    pExplosion.rate(3);
+                    pExplosion.play();
+                    this.score += saucer.val;
+                    this.shootable = true;
+                }
 
-            if (!this.shootable && this.laser.y <= -this.laser.height) {
-                this.shootable = true;
-            } else if (this.shootable) {
+                if (this.laser.y <= -this.laser.height) {
+                    this.shootable = true;
+                }
+            } else {
                 this.resetLaser();
             }
         }
