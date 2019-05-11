@@ -33,30 +33,30 @@ if (window.innerWidth < 1000) {
 	var songs;
 
 	function preload() {
-		playerSprite = loadImage("../assets/img/player.png");
-		laserSheet = loadImage("../assets/img/lasers.png");
-		saucerSprite = loadImage("../assets/img/saucer.png");
+		playerSprite = loadImage("assets/img/player.png");
+		laserSheet = loadImage("assets/img/lasers.png");
+		saucerSprite = loadImage("assets/img/saucer.png");
 
-		a1_1 = loadImage("../assets/img/a1_1.png");
-		a1_2 = loadImage("../assets/img/a1_2.png");
-		a2_1 = loadImage("../assets/img/a2_1.png");
-		a2_2 = loadImage("../assets/img/a2_2.png");
-		a3_1 = loadImage("../assets/img/a3_1.png");
-		a3_2 = loadImage("../assets/img/a3_2.png");
+		a1_1 = loadImage("assets/img/a1_1.png");
+		a1_2 = loadImage("assets/img/a1_2.png");
+		a2_1 = loadImage("assets/img/a2_1.png");
+		a2_2 = loadImage("assets/img/a2_2.png");
+		a3_1 = loadImage("assets/img/a3_1.png");
+		a3_2 = loadImage("assets/img/a3_2.png");
 
-		pD1 = loadImage("../assets/img/dPlayer-frame1.png");
-		pD2 = loadImage("../assets/img/dPlayer-frame2.png");
-		explosion = loadImage("../assets/img/explosion.png");
+		pD1 = loadImage("assets/img/dPlayer-frame1.png");
+		pD2 = loadImage("assets/img/dPlayer-frame2.png");
+		explosion = loadImage("assets/img/explosion.png");
 
 		font = loadFont('assets/fonts/PressStart2P-Regular.ttf');
 
-		laserSound = loadSound("../assets/audio/blaster.mp3");
-		aLaserSound = loadSound("../assets/audio/alienBlaster.mp3");
+		laserSound = loadSound("assets/audio/blaster.mp3");
+		aLaserSound = loadSound("assets/audio/alienBlaster.mp3");
 
-		aExplosion = loadSound("../assets/audio/alienExplosion.mp3");
-		pExplosion = loadSound("../assets/audio/playerExplosion.mp3");
+		aExplosion = loadSound("assets/audio/alienExplosion.mp3");
+		pExplosion = loadSound("assets/audio/playerExplosion.mp3");
 
-		songs = [loadSound("../assets/audio/FCD.mp3"), loadSound("../assets/audio/SA.mp3"), loadSound("../assets/audio/UP.mp3")];
+		songs = [loadSound("assets/audio/FCD.mp3"), loadSound("assets/audio/SA.mp3"), loadSound("assets/audio/UP.mp3")];
 
 		aLaserSound.amp(2);
 		aExplosion.amp(10);
