@@ -57,7 +57,7 @@ class Player {
                             row[i].explode();
                             aExplosion.play();
 
-                            this.shootable = true;
+                            this.resetLaser();
                         }
                     }
                 }
@@ -67,7 +67,7 @@ class Player {
                     for (let p of s.parts) {
                         if (p.health !== 0 && this.laser.hits(p)) {
                             p.shatter();
-                            this.shootable = true;
+                            this.resetLaser();
                         }
                     }
                 }
@@ -77,19 +77,21 @@ class Player {
                     pExplosion.rate(3);
                     pExplosion.play();
                     this.score += saucer.val;
-                    this.shootable = true;
+                    this.resetLaser();
                 }
 
                 if (this.laser.y <= -this.laser.height) {
-                    this.shootable = true;
+                    this.resetLaser();
                 }
             } else {
-                this.resetLaser();
+                this.laser.x = this.x + 28;
             }
         }
     }
 
     resetLaser() {
+        this.laser.yVel = 0;
+        this.shootable = true;
         this.laser.x = this.x + 28;
         this.laser.y = this.y + 16;
     }
